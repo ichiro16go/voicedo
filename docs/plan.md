@@ -289,9 +289,14 @@ D30はStage 0/1の期間内では測れない。先行指標で代用する：
 - [x] MVPスコープ・KPI設計（Stage定義、先行指標、撤退ライン明示）
 - [~] リスク・ダウンサイド検討（識別済、各対策はMVPで実装）
 - [~] プロダクト名・ブランディング（Voicedo方針確定、ドメイン/商標確認待ち）
+- [x] **技術選定 v1.1**（Expo / Supabase / Vercel AI SDK / Stripe+RevenueCat、tech-stack.md / ADR 0001）
+- [x] **リポジトリ初期化**（Expo SDK 56 + NativeWind + Supabase + AI SDK + Biome + Vitest）
+- [x] **AI/人間共通の開発ガイド**（AGENTS.md / CLAUDE.md / .cursorrules / Copilot instructions / ai-dev-log.md）
 - [ ] ドメイン取得（voicedo.com / .ai / .app）
 - [ ] 商標仮検索（J-PlatPat / USPTO）
+- [ ] Supabase プロジェクト作成 + migration 適用
 - [ ] note貼り付けUX 実機プロト3パターン検証
+- [ ] gpt-5 vs Claude Sonnet 4.5 vs Gemini 2.5 Pro 記事生成ブラインドテスト
 - [ ] muute レビュー300件＋ヒアリング5人（Type%確定）
 - [ ] プライバシー法令リーガル相談
 - [ ] STT/LLMプロバイダー Opt-out契約確認

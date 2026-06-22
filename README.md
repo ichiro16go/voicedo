@@ -30,6 +30,7 @@ pnpm android           # Android エミュレータ
 | `pnpm lint` | Biome lint |
 | `pnpm format` | Biome format |
 | `pnpm typecheck` | TypeScript 型検査 |
+| `pnpm test` | Vitest（ユニット） |
 
 ## ディレクトリ構成
 

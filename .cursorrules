@@ -1,1 +1,10 @@
-@AGENTS.md
+# Cursor Rules
+
+Read [AGENTS.md](./AGENTS.md) first — it is the single source of truth for this repo.
+
+## Cursor固有
+- Composer / Agent モード使用時は **AGENTS.md §3.5 の AI駆動開発ループ** に沿って動く
+- 大きな変更は Plan を提示してから実装
+- 実装後は §5.5 のレビュー観点で自己点検し、P1/P2 懸念を先に申告
+- 不明なAPI・ライブラリ仕様は `@web` で公式ドキュメントを参照（推測禁止）
+- `docs/ai-dev-log.md` に学びを追記
