@@ -1,0 +1,21 @@
+# <type>(<scope>): <short summary 50 chars max>
+#
+# Types: feat / fix / chore / docs / refactor / test / perf / build / ci
+# Example: feat(recorder): add expo-audio recorder hook
+#
+# --- Body (wrap at 72 chars) ---
+# 何を / なぜ変えたか。AGENTS.md §5.2 に従う。
+#
+# - 変更点1
+# - 変更点2
+# - 変更点3
+#
+# Verification:
+# - pnpm typecheck: PASS
+# - pnpm lint: PASS
+# - pnpm test: PASS (N/N tests)
+# - 実機検証: （必要なら何をどう確認したか）
+#
+# Related: #issue / docs/plan.md L<line> / docs/adr/NNNN-xxx.md
+#
+# Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>

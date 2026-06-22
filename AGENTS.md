@@ -160,7 +160,7 @@ refactor/<scope>-<short-desc>   # 振る舞いを変えない整理
 ```
 - `<scope>` 例: `recorder`, `auth`, `ai`, `billing`, `supabase`
 
-### 5.2 コミットメッセージ（Conventional Commits）
+### 5.2 コミットメッセージ（Conventional Commits）— 進捗の単一情報源
 ```
 feat(recorder): add expo-audio recorder hook
 fix(supabase): correct RLS policy for turns table
@@ -168,6 +168,24 @@ chore(deps): bump expo to 56.0.13
 docs(plan): mark pricing as hypothesis
 ```
 - 日本語タイトルも可（ただし `prefix:` は英語）
+
+**コミット = 進捗の正本**。以下を厳守する：
+- **1タスク = 1コミット**。途中状態（テスト落ち、空ファイル、TODOコメント）をコミットしない
+- **コミット前に必ず `pnpm typecheck && pnpm lint && pnpm test` 全てPASS**を確認
+- コミット本文には以下を含める（`docs:` 単体を除く）：
+  ```
+  <一行サマリ>
+
+  <変更内容の箇条書き 3-6行>
+
+  Verification:
+  - pnpm typecheck PASS / FAIL
+  - pnpm lint PASS / FAIL
+  - pnpm test PASS / FAIL (X/Y tests)
+  - 実機検証: 何をどう確認したか（必要なら）
+  ```
+- 「あとで直す」をコミットしない。直してから1コミットにまとめる
+- AIエージェントが自動コミットする場合も、これらの検証ブロックを必ず含める
 
 ### 5.3 PR 単位
 - **1 issue = 1 PR**（[user memory] 複数issueを1PRに入れない）
