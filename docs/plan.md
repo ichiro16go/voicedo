@@ -293,20 +293,36 @@ D30はStage 0/1の期間内では測れない。先行指標で代用する：
 - [x] **リポジトリ初期化**（Expo SDK 56 + NativeWind + Supabase + AI SDK + Biome + Vitest）
 - [x] **AI/人間共通の開発ガイド**（AGENTS.md / CLAUDE.md / .cursorrules / Copilot instructions / ai-dev-log.md）
 - [x] **Supabase スキーマ適用 + RLS 動作確認**（5テーブル、RLS smoke test 14本 green）
-- [ ] ドメイン取得（voicedo.com / .ai / .app）
-- [ ] 商標仮検索（J-PlatPat / USPTO）
-- [ ] Supabase 型再生成（`supabase gen types typescript --linked`）/ migration repair（必要時）
-- [ ] Storage バケット `voicedo-audio` 作成（Private、7日lifecycle）
-- [ ] note貼り付けUX 実機プロト3パターン検証
-- [ ] gpt-5 vs Claude Sonnet 4.5 vs Gemini 2.5 Pro 記事生成ブラインドテスト
+- [x] **Supabase 型再生成**（`src/types/database.ts` 348行、CLI生成の正本型）
+- [x] **進捗管理を git commit に統一**（AGENTS §5.2 / `.gitmessage` 整備）
+- [x] **タスクを GitHub Issue 化**（#1-#7、ラベル/Assignee設定済）
+- [ ] **#1 LLM ブラインドテスト**（gpt-5 vs Claude 4.5 vs Gemini 2.5 Pro、記事生成LLM確定）← **次にやる**
+- [ ] **#2 LLM プロバイダーアダプタ実装**（OpenAI/Anthropic/Google）
+- [ ] **#3 録音画面実装**（expo-audio + Supabase Storage アップロード）
+- [ ] **#4 note貼り付けUX 3パターン実機検証**
+- [ ] **#5 Stripe Payment Links で Stage 0 課金導線**
+- [ ] **#6 Storage バケット `voicedo-audio` 作成 + RLS**
+- [ ] **#7 ドメイン取得 + 商標仮検索**
 - [ ] muute レビュー300件＋ヒアリング5人（Type%確定）
 - [ ] プライバシー法令リーガル相談
 - [ ] STT/LLMプロバイダー Opt-out契約確認
 - [ ] Stage 0 募集開始（非知人60%以上、メインペルソナ条件）
 
-## 次のアクション（壁打ち完了後）
-1. ドメイン即取得（voicedo.com）
-2. Stage 0 Wizard of Oz 今週末実施
-3. ハル人格憲法 + 質問テンプレ5本作成
-4. 記事生成プロンプト作成
-5. Build in Public 開始（Twitter）
+## 次のアクション（実装開始）
+
+進捗の正本は **git commit** と **GitHub Issues** に統一。
+詳細仕様・完了条件は各 Issue を参照。
+
+1. **#1 LLM ブラインドテスト** — 記事生成LLMを実音声5本で確定。tech-stack.md / ADR 0002 に反映
+2. **#7 ドメイン取得** — Stage 0 のLPに必要
+3. **#6 Storage バケット作成** — #3録音画面の前提
+4. **#2 LLM プロバイダーアダプタ実装** — #1の結果を本番コードに反映
+5. **#3 録音画面実装** — コア体験の最初のピース
+6. **#4 note貼り付けUX検証** — P1リスクの実機検証
+7. **#5 Stripe Payment Links** — Stage 0 課金意思の検証
+
+### 後続（Issue未起票、Stage 0着手時に化）
+- ハル人格憲法 + 質問テンプレ5本作成
+- 記事生成プロンプト v2（ブラインドテスト結果を反映）
+- Build in Public 開始（Twitter）
+- Stage 0 募集（メインペルソナ5人以上、非知人60%以上）
