@@ -292,9 +292,11 @@ D30はStage 0/1の期間内では測れない。先行指標で代用する：
 - [x] **技術選定 v1.1**（Expo / Supabase / Vercel AI SDK / Stripe+RevenueCat、tech-stack.md / ADR 0001）
 - [x] **リポジトリ初期化**（Expo SDK 56 + NativeWind + Supabase + AI SDK + Biome + Vitest）
 - [x] **AI/人間共通の開発ガイド**（AGENTS.md / CLAUDE.md / .cursorrules / Copilot instructions / ai-dev-log.md）
+- [x] **Supabase スキーマ適用 + RLS 動作確認**（5テーブル、RLS smoke test 14本 green）
 - [ ] ドメイン取得（voicedo.com / .ai / .app）
 - [ ] 商標仮検索（J-PlatPat / USPTO）
-- [ ] Supabase プロジェクト作成 + migration 適用
+- [ ] Supabase 型再生成（`supabase gen types typescript --linked`）/ migration repair（必要時）
+- [ ] Storage バケット `voicedo-audio` 作成（Private、7日lifecycle）
 - [ ] note貼り付けUX 実機プロト3パターン検証
 - [ ] gpt-5 vs Claude Sonnet 4.5 vs Gemini 2.5 Pro 記事生成ブラインドテスト
 - [ ] muute レビュー300件＋ヒアリング5人（Type%確定）
