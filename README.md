@@ -1,56 +1,59 @@
-# Welcome to your Expo app 👋
+# Voicedo
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> 3-5分の音声がそのままnote記事になる、対話型AI日記アプリ。
 
-## Get started
+[![Stage 1](https://img.shields.io/badge/stage-1%20(self--use%20β)-blue)]() [![Status](https://img.shields.io/badge/status-WIP-orange)]()
 
-1. Install dependencies
+- **対象**: 書きたいけど書けない会社員/エンジニア（メインペルソナ「田中」）
+- **コア体験**: 3-5分話す → AIが質問で深掘り → 自動でMarkdown記事 → noteエディタへ
+- **詳細計画**: [docs/plan.md](./docs/plan.md)
+- **技術選定**: [docs/tech-stack.md](./docs/tech-stack.md)
+- **学習ロードマップ**: [docs/learning-roadmap.md](./docs/learning-roadmap.md)
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## クイックスタート
 
 ```bash
-npm run reset-project
+pnpm install
+cp .env.example .env   # .env を編集して必要なキーを設定
+pnpm start             # Expo Dev Server 起動
+pnpm web               # Web で確認
+pnpm ios               # iOS シミュレータ（要 macOS）
+pnpm android           # Android エミュレータ
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## スクリプト
 
-### Other setup steps
+| コマンド | 説明 |
+|---|---|
+| `pnpm start` | Expo Dev Server |
+| `pnpm web` / `pnpm ios` / `pnpm android` | 各プラットフォーム起動 |
+| `pnpm lint` | Biome lint |
+| `pnpm format` | Biome format |
+| `pnpm typecheck` | TypeScript 型検査 |
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## ディレクトリ構成
 
-## Learn more
+```
+voicedo/
+├─ src/
+│  ├─ app/              # expo-router の画面（file-based routing）
+│  ├─ components/       # UIコンポーネント（NativeWind）
+│  ├─ lib/
+│  │  ├─ ai/            # LLM抽象化（STT/Chat/ArticleGenerator）
+│  │  ├─ audio/         # 録音まわり（expo-audio）
+│  │  ├─ billing/       # Stripe / RevenueCat
+│  │  └─ supabase/      # Supabase client
+│  ├─ types/            # 型定義（DB型は supabase gen で再生成）
+│  └─ global.css        # NativeWind 入口
+├─ supabase/migrations/ # DBスキーマ
+└─ docs/                # plan / tech-stack / ADR
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## 開発ルール
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+開発に参加する人間 / AI は必ず [AGENTS.md](./AGENTS.md) を読んでください。
+- 技術スタック・コーディング規約・PRルール
+- AIアシスタント向けの遵守事項（ハルシネーション防止・公式ドキュメント参照ルール）
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## ライセンス
+MIT
