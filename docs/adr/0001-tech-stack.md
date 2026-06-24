@@ -20,4 +20,4 @@ Expo (RN + Web) / Supabase / Vercel AI SDK / gpt-4o-transcribe / gpt-5-mini / Cl
 
 ## 撤退条件
 - Expoの学習コストに2週間以上溶けたら PWA に即退却
-- 主要ライブラリの Expo SDK 56 互換性破綻が3つ以上見つかったら見直し
+- 主要ライブラリの Expo SDK 54 互換性破綻が3つ以上見つかったら見直し

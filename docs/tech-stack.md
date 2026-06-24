@@ -12,7 +12,7 @@
 | フロント | **Expo (React Native) + TypeScript + Expo Router** | iOS/Android + Web を1コードベース。再開発回避 |
 | Web版 | **Expo Web（React Native Web）** | LP・Stage 0 Wizard of Oz・note貼り付け導線用 |
 | UI | **NativeWind (Tailwind for RN) + Tamagui or gluestack-ui** | — |
-| 録音 | **expo-audio**（iOS/Android/Web 統一API、SDK 56 標準） | バックグラウンド録音もネイティブで取れる |
+| 録音 | **expo-audio**（iOS/Android/Web 統一API、SDK 54 標準） | バックグラウンド録音もネイティブで取れる |
 | STT | **OpenAI `gpt-4o-transcribe`** | Deepgram Nova-3 を Stage 2 で評価 |
 | 対話LLM（ハル/ロイ） | **gpt-5-mini** | Gemini 2.5 Flash フォールバック |
 | 記事生成LLM | **Claude Sonnet 4.5** | 日本語品質重視。Stage 1でgpt-5とブラインド比較 |
