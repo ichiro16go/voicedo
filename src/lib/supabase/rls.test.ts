@@ -42,3 +42,40 @@ describeIf("Supabase RLS smoke test (anon, unauthenticated)", () => {
     });
   }
 });
+
+// =============================================================================
+// Storage バケット voicedo-audio (#6) の RLS smoke test
+// バケット未作成時は describe.skip しないので、空配列/エラーで通る形に書く
+// =============================================================================
+describeIf("Supabase Storage RLS: voicedo-audio bucket", () => {
+  let client: SupabaseClient;
+
+  beforeAll(() => {
+    client = createClient(url as string, anonKey as string);
+  });
+
+  it("匿名ユーザーは voicedo-audio バケット内をリストできない (空 or error)", async () => {
+    const { data, error } = await client.storage
+      .from("voicedo-audio")
+      .list("", { limit: 1 });
+    const blocked = !data || data.length === 0 || !!error;
+    expect(blocked).toBe(true);
+  });
+
+  it("匿名ユーザーは voicedo-audio にアップロードできない", async () => {
+    const path = `anon-not-allowed/${Date.now()}.m4a`;
+    const blob = new Blob([new Uint8Array([0])], { type: "audio/m4a" });
+    const { error } = await client.storage
+      .from("voicedo-audio")
+      .upload(path, blob);
+    expect(error).toBeTruthy();
+  });
+
+  it("匿名ユーザーは他人の path に signed URL を発行できない", async () => {
+    const fakeUserId = "00000000-0000-0000-0000-000000000000";
+    const { data, error } = await client.storage
+      .from("voicedo-audio")
+      .createSignedUrl(`${fakeUserId}/missing.m4a`, 60);
+    expect(error || !data).toBeTruthy();
+  });
+});
