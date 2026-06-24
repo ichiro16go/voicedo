@@ -290,7 +290,7 @@ D30はStage 0/1の期間内では測れない。先行指標で代用する：
 - [~] リスク・ダウンサイド検討（識別済、各対策はMVPで実装）
 - [~] プロダクト名・ブランディング（Voicedo方針確定、ドメイン/商標確認待ち）
 - [x] **技術選定 v1.1**（Expo / Supabase / Vercel AI SDK / Stripe+RevenueCat、tech-stack.md / ADR 0001）
-- [x] **リポジトリ初期化**（Expo SDK 56 + NativeWind + Supabase + AI SDK + Biome + Vitest）
+- [x] **リポジトリ初期化**（Expo SDK 54 + NativeWind + Supabase + AI SDK + Biome + Vitest）
 - [x] **AI/人間共通の開発ガイド**（AGENTS.md / CLAUDE.md / .cursorrules / Copilot instructions / ai-dev-log.md）
 - [x] **Supabase スキーマ適用 + RLS 動作確認**（5テーブル、RLS smoke test 14本 green）
 - [x] **Supabase 型再生成**（`src/types/database.ts` 348行、CLI生成の正本型）

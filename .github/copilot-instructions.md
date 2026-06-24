@@ -5,7 +5,7 @@
 
 Copilot や Copilot Chat で提案を生成する前に、必ず AGENTS.md を読み、以下を守ってください：
 
-- Expo SDK 56 の公式ドキュメントで実在するAPIだけを使う（推測禁止）
+- Expo SDK 54 の公式ドキュメントで実在するAPIだけを使う（推測禁止）
 - `expo-audio` を使う（`expo-av` は禁止）
 - パッケージマネージャーは **pnpm**
 - Lint/Format は **Biome**（ESLint / Prettier は導入しない）

@@ -8,7 +8,7 @@
 ## 0. 最重要：3つの絶対ルール
 
 1. **公式ドキュメントを必ず確認する**（推測でAPIを書かない）
-   - Expo: https://docs.expo.dev/versions/v56.0.0/
+   - Expo: https://docs.expo.dev/versions/v54.0.0/
    - Supabase: https://supabase.com/docs
    - Vercel AI SDK: https://ai-sdk.dev/docs
    - 「たぶんこういうAPIがあるはず」で書かない。**実在確認 → 書く** の順。
@@ -37,7 +37,7 @@
 
 | レイヤ | 採用 |
 |---|---|
-| フロント | **Expo SDK 56 (React Native + Web) + Expo Router + TypeScript** |
+| フロント | **Expo SDK 54 (React Native + Web) + Expo Router + TypeScript** |
 | UI | **NativeWind 4 (Tailwind for RN)** |
 | 録音 | `expo-audio`（旧 expo-av は使わない） |
 | STT | `gpt-4o-transcribe` |
@@ -59,7 +59,7 @@
   1. 公式ドキュメントを fetch して確認
   2. `node_modules/<pkg>/dist/*.d.ts` を grep して型を確認
   3. 確証がなければ「未確認」とコメントを残し、ユーザーに確認を求める
-- 特に Expo SDK 56 は最新で破壊的変更が多い。`expo-av` → `expo-audio`、`AsyncStorage` のimport元など、**バージョン依存の差分** を必ず確認する
+- 特に Expo SDK 54 は破壊的変更が多い。`expo-av` → `expo-audio`、`AsyncStorage` のimport元など、**バージョン依存の差分** を必ず確認する（SDK 56 由来のAPIを使わない: 例 `expo-router` の `DarkTheme`/`DefaultTheme`/`ThemeProvider` は `@react-navigation/native` から import、`SymbolView` の `name` は `{ios, android, web}` ではなく単一の SFSymbol 文字列、`NativeTabs.Trigger.Label/Icon` は使わず `Label`/`Icon` を `expo-router/unstable-native-tabs` から直接 import）
 
 ### 3.2 修正範囲は最小に
 - ユーザーが依頼した範囲だけを修正する
@@ -272,7 +272,7 @@ AIが作ったコード（および自分が書いたコード）は、マージ
 | 仕様判断に迷う | `docs/plan.md` |
 | 技術選定の根拠を知りたい | `docs/tech-stack.md` |
 | 過去の判断履歴 | `docs/adr/` |
-| Expo の API がわからない | https://docs.expo.dev/versions/v56.0.0/ |
+| Expo の API がわからない | https://docs.expo.dev/versions/v54.0.0/ |
 | Supabase の API がわからない | https://supabase.com/docs |
 | AI SDK の使い方 | https://ai-sdk.dev/docs |
 
