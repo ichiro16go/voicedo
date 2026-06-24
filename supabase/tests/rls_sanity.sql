@@ -13,3 +13,17 @@ left join (
 where c.relnamespace = 'public'::regnamespace
   and c.relname in ('sessions','turns','articles','deletions','billing_events')
 order by c.relname;
+
+-- Storage バケット voicedo-audio の存在と RLS ポリシー数 (#6)
+-- 期待: bucket=1行 / public=false / size_limit=52428800 / 4ポリシー
+select id, public, file_size_limit
+from storage.buckets
+where id = 'voicedo-audio';
+
+select polname, polcmd
+from pg_policy p
+join pg_class c on c.oid = p.polrelid
+where c.relname = 'objects'
+  and c.relnamespace = 'storage'::regnamespace
+  and polname like 'voicedo_audio_%'
+order by polname;
