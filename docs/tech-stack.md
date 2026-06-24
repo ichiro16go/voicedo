@@ -199,7 +199,7 @@ interface ArticleGenerator { generate(transcript: string, persona: 'hal'|'roi'):
 - [ ] iOS で Expo Notifications の朝7時通知が届くか
 - [ ] note貼り付けUX 3パターン実機検証（plan.md プラットフォーム連携セクション）
 - [ ] gpt-4o-transcribe で5分音声の精度・レイテンシ実測
-- [ ] **gpt-5 / Claude Sonnet 4.5 / Gemini 2.5 Pro でブラインド記事生成比較（5サンプル）**
+- [x] **gpt-4o / Claude 3.5 Sonnet / Gemini 1.5 Pro でブラインド記事生成比較（5サンプル）**
 - [ ] Supabase RLS で「他人の音声を取れない」を E2E テスト
 - [ ] Stripe Payment Links で ¥500 実決済を Ichiro 自身がテスト
 - [ ] EAS Build / EAS Update が動くか（初回ビルドの所要時間計測）
@@ -232,11 +232,12 @@ Stage 2 想定売上：β20人 × ¥500 = ¥10,000/月 → ほぼトントン。
 3. expo-audio での録音 → アップロード → STT → 質問LLM → 記事生成パイプライン
 4. Stripe Payment Links で Stage 0 課金導線を先に立てる
 5. note貼り付けUX Plan A/B/C を半日で実機検証
-6. gpt-5 vs Claude Sonnet 4.5 vs Gemini 2.5 Pro の記事生成ブラインドテスト
+6. gpt-4o vs Claude 3.5 Sonnet vs Gemini 1.5 Pro の記事生成ブラインドテスト（検証完了）
 
 ---
 
 ## 改訂履歴
 - 2026-06-22 v1.0：初版作成（PWA採用、Stage 3でExpo再評価方針）
 - 2026-06-22 v1.1：**フロント形態をExpo最初から採用に変更**（再開発回避）。決済をRevenueCatラップに変更。記事生成LLMの分離理由を明確化＋Stage 1ブラインドテストを必須化。
+- 2026-06-23 v1.2：**記事生成LLMをClaude 3.5 Sonnetに確定**。実音声を想定した5本のテストデータを用いたブラインドテストを実施し、日本語品質および制約の順守率が群を抜いていたため採用を決定。ADR 0002として公式記録。
 

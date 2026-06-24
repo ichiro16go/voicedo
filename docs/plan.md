@@ -296,9 +296,9 @@ D30はStage 0/1の期間内では測れない。先行指標で代用する：
 - [x] **Supabase 型再生成**（`src/types/database.ts` 348行、CLI生成の正本型）
 - [x] **進捗管理を git commit に統一**（AGENTS §5.2 / `.gitmessage` 整備）
 - [x] **タスクを GitHub Issue 化**（#1-#7、ラベル/Assignee設定済）
-- [ ] **#1 LLM ブラインドテスト**（gpt-5 vs Claude 4.5 vs Gemini 2.5 Pro、記事生成LLM確定）← **次にやる**
-- [ ] **#2 LLM プロバイダーアダプタ実装**（OpenAI/Anthropic/Google）
-- [ ] **#3 録音画面実装**（expo-audio + Supabase Storage アップロード）
+- [x] **#1 LLM ブラインドテスト 完了**（Claude 3.5 Sonnet 採用、ADR 0002 / blind-test-results.md）
+- [x] **#2 LLM プロバイダーアダプタ実装 完了**（OpenAI/Anthropic/Google、`src/lib/ai/providers/` + 36 tests）
+- [ ] **#3 録音画面実装**（expo-audio + Supabase Storage アップロード）← **次にやる**
 - [ ] **#4 note貼り付けUX 3パターン実機検証**
 - [ ] **#5 Stripe Payment Links で Stage 0 課金導線**
 - [ ] **#6 Storage バケット `voicedo-audio` 作成 + RLS**
