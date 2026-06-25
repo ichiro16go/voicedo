@@ -48,15 +48,19 @@ https://console.cloud.google.com/apis/credentials
 
 ## 2. Supabase Dashboard — Google Provider 有効化
 
-Authentication → Providers → Google
+Authentication → Sign In / Providers → Google
 
-- Enable: ON
-- **Client ID (for OAuth)**: 1.1 の Web Client ID
+> ⚠️ Supabase UI は 2026 年に統合され、旧「Authorized Client IDs」欄は廃止。
+> 現在は **Client IDs（複数形）** が両用途を兼ねる。
+
+- **Enable Sign in with Google**: ON
+- **Client IDs** (カンマ区切り、スペース無し): 1.1 / 1.2 / 1.3 の Client ID を全部
+  ```
+  <web>.apps.googleusercontent.com,<ios>.apps.googleusercontent.com,<android>.apps.googleusercontent.com
+  ```
 - **Client Secret (for OAuth)**: 1.1 の Web Client Secret
-- **Authorized Client IDs** (signInWithIdToken 用): カンマ区切りで以下を全て記入
-  ```
-  <web client id>,<ios client id>,<android client id>
-  ```
+- **Skip nonce checks**: **ON** ⚠️ iOS ネイティブ Google Sign-in は nonce を返さないため必須
+- **Allow users without an email**: OFF
 - Save
 
 ---
