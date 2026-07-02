@@ -1,65 +1,59 @@
+import * as AppleAuthentication from "expo-apple-authentication";
 import { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
-  InvalidEmailError,
-  InvalidOtpError,
-  sendOtp,
-  verifyOtp,
+  AppleSignInCancelledError,
+  AppleSignInUnavailableError,
+  GoogleSignInCancelledError,
+  signInWithApple,
+  signInWithGoogle,
 } from "@/lib/supabase/auth";
 
-type Step = "email" | "otp";
-
 export function SignInForm() {
-  const [step, setStep] = useState<Step>("email");
-  const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState<"google" | "apple" | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSendOtp = async () => {
+  const handleGoogle = async () => {
     setError(null);
-    setBusy(true);
+    setBusy("google");
     try {
-      await sendOtp(email);
-      setStep("otp");
-      Alert.alert(
-        "確認コードを送信しました",
-        "メール内の6桁コードを入力してください。",
-      );
+      await signInWithGoogle();
+      // AuthProvider が onAuthStateChange で遷移
     } catch (e) {
-      if (e instanceof InvalidEmailError) {
-        setError(e.message);
+      if (e instanceof GoogleSignInCancelledError) {
+        // ユーザー操作によるキャンセルはエラー表示しない
       } else {
-        setError("送信に失敗しました。少し待って再度お試しください。");
+        setError("Google サインインに失敗しました。時間を置いて再度お試しください。");
       }
     } finally {
-      setBusy(false);
+      setBusy(null);
     }
   };
 
-  const handleVerify = async () => {
+  const handleApple = async () => {
     setError(null);
-    setBusy(true);
+    setBusy("apple");
     try {
-      await verifyOtp(email, otp);
-      // 成功時は AuthProvider が onAuthStateChange を受けて画面遷移
+      await signInWithApple();
     } catch (e) {
-      if (e instanceof InvalidOtpError) {
-        setError(e.message);
+      if (e instanceof AppleSignInCancelledError) {
+        // 何もしない
+      } else if (e instanceof AppleSignInUnavailableError) {
+        Alert.alert("利用不可", e.message);
       } else {
-        setError("コードが正しくないか、有効期限切れです。もう一度お試しください。");
+        setError("Apple サインインに失敗しました。時間を置いて再度お試しください。");
       }
     } finally {
-      setBusy(false);
+      setBusy(null);
     }
   };
 
@@ -68,69 +62,39 @@ export function SignInForm() {
       <View style={styles.inner}>
         <Text style={styles.title}>Voicedo へようこそ</Text>
         <Text style={styles.subtitle}>
-          {step === "email"
-            ? "メールアドレスを入力してください。"
-            : `${email} 宛に6桁コードを送信しました。`}
+          話すだけで、書ける。{"\n"}まずはサインインしてください。
         </Text>
-
-        {step === "email" ? (
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            placeholder="you@example.com"
-            placeholderTextColor="#9aa0a6"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            autoComplete="email"
-            editable={!busy}
-          />
-        ) : (
-          <TextInput
-            style={[styles.input, styles.otpInput]}
-            value={otp}
-            onChangeText={setOtp}
-            placeholder="123456"
-            placeholderTextColor="#9aa0a6"
-            keyboardType="number-pad"
-            maxLength={6}
-            editable={!busy}
-          />
-        )}
 
         {error ? <Text style={styles.error}>{error}</Text> : null}
 
         <Pressable
-          style={[styles.button, busy && styles.buttonDisabled]}
-          onPress={step === "email" ? handleSendOtp : handleVerify}
-          disabled={busy}
+          style={[styles.googleButton, busy && styles.buttonDisabled]}
+          onPress={handleGoogle}
+          disabled={busy !== null}
         >
-          {busy ? (
-            <ActivityIndicator color="#fff" />
+          {busy === "google" ? (
+            <ActivityIndicator color="#3c4043" />
           ) : (
-            <Text style={styles.buttonText}>
-              {step === "email" ? "確認コードを送る" : "ログイン"}
-            </Text>
+            <Text style={styles.googleText}>Google で続ける</Text>
           )}
         </Pressable>
 
-        {step === "otp" ? (
-          <Pressable
-            style={styles.linkButton}
-            onPress={() => {
-              setStep("email");
-              setOtp("");
-              setError(null);
-            }}
-            disabled={busy}
-          >
-            <Text style={styles.linkText}>メールアドレスを変更する</Text>
-          </Pressable>
+        {Platform.OS === "ios" ? (
+          <AppleAuthentication.AppleAuthenticationButton
+            buttonType={
+              AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
+            }
+            buttonStyle={
+              AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
+            }
+            cornerRadius={10}
+            style={styles.appleButton}
+            onPress={handleApple}
+          />
         ) : null}
 
         <Text style={styles.notice}>
-          ログインすると、利用規約とプライバシーポリシーに同意したものとみなします。
+          サインインすると、利用規約とプライバシーポリシーに同意したものとみなします。
         </Text>
       </View>
     </SafeAreaView>
@@ -159,53 +123,35 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 15,
     color: "#444",
-    marginBottom: 24,
+    marginBottom: 32,
     lineHeight: 22,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#d0d4d9",
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 14,
-    fontSize: 16,
-    color: "#111",
-    backgroundColor: "#fafafa",
-  },
-  otpInput: {
-    textAlign: "center",
-    fontSize: 22,
-    letterSpacing: 8,
   },
   error: {
     color: "#c00",
-    marginTop: 12,
+    marginBottom: 16,
     fontSize: 14,
   },
-  button: {
-    marginTop: 20,
-    backgroundColor: "#111",
+  googleButton: {
+    height: 48,
     borderRadius: 10,
-    paddingVertical: 14,
+    borderWidth: 1,
+    borderColor: "#dadce0",
+    backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 12,
   },
-  buttonDisabled: {
-    backgroundColor: "#888",
-  },
-  buttonText: {
-    color: "#fff",
+  googleText: {
+    color: "#3c4043",
     fontSize: 16,
     fontWeight: "600",
   },
-  linkButton: {
-    marginTop: 14,
-    alignItems: "center",
-    paddingVertical: 8,
+  appleButton: {
+    height: 48,
+    width: "100%",
   },
-  linkText: {
-    color: "#555",
-    fontSize: 14,
-    textDecorationLine: "underline",
+  buttonDisabled: {
+    opacity: 0.6,
   },
   notice: {
     marginTop: 32,

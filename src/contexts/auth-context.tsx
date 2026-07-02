@@ -1,5 +1,6 @@
 import type { Session, User } from "@supabase/supabase-js";
 import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import { configureGoogleSignIn } from "@/lib/supabase/auth";
 import { supabase } from "@/lib/supabase/client";
 
 type AuthState = {
@@ -23,6 +24,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let mounted = true;
+
+    try {
+      configureGoogleSignIn();
+    } catch (e) {
+      console.warn(
+        "Google Sign-In configure failed:",
+        (e as Error).message,
+      );
+    }
 
     supabase.auth.getSession().then(({ data }) => {
       if (!mounted) return;

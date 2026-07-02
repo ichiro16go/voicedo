@@ -8,9 +8,12 @@
     "scheme": "voicedo",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.ichiro16go.voicedo",
+      "usesAppleSignIn": true
     },
     "android": {
+      "package": "com.ichiro16go.voicedo",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -34,11 +37,26 @@
             "imageWidth": 76
           }
         }
-      ]
+      ],
+      "@react-native-google-signin/google-signin",
+      "expo-apple-authentication"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6e1f25b4-9043-4c80-af08-c22ef54923f5"
+      }
+    },
+    "owner": "ichiro.m",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/6e1f25b4-9043-4c80-af08-c22ef54923f5"
     }
   }
 }
